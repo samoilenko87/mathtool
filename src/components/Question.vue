@@ -3,7 +3,10 @@
 		<h3>{{x}} + {{y}} = ?</h3>
 		<hr>
 		<div class="buttons">
-			<button class="btn btn-success" v-for="number in answers">
+			<button class="btn btn-success" 
+			v-for="number in answers"
+			@click="onAnswer(number)"
+			>
 				{{number}}
 			</button>
 		</div>
@@ -19,12 +22,15 @@
 			}
 		},
 		computed: {
+			good(){
+				return this.x + this.y;
+			},
 			answers() {
-				var good = this.x + this.y
-				var res = [good];
+				let good = this.x + this.y
+				let res = [this.good];
 
 				while(res.length < 4) {
-					var num = mtRand(good - 20, good + 20);//дополняем массив рандомными числами 
+					let num = mtRand(this.good - 20, this.good + 20);//дополняем массив рандомными числами 
 
 					if(res.indexOf(num) === -1) { ///если не содержит такого числа
 					res.push(num);
@@ -37,8 +43,19 @@
 
 			}
 
+			},
+			methods: {
+				onAnswer (num) {
+					if (num == this.good){
+						alert ('rihgt');
+					}
+					else{
+						alert ('wrong');
+						}
+					}
+				}
 			}
-		}
+		
 	
 
 	function mtRand(min,max){
