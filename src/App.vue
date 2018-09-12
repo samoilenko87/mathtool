@@ -3,7 +3,10 @@
   <h1>Math Training Tool</h1>  
   <hr>
 
-<app-start-screen v-if="state == 'start'"></app-start-screen>
+<app-start-screen 
+v-if="state == 'start'"
+@onStart="onStart"
+></app-start-screen>
 
 <app-question v-else-if="state == 'question'"></app-question>
 
@@ -20,7 +23,12 @@
 export default {
   data () {
     return {
-      state: 'results'
+      state: 'start'
+    }
+  },
+  methods: {
+    onStart() {
+      this.state = 'question';
     }
   }
 }
